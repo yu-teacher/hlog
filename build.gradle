@@ -1,0 +1,70 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.hunnit_beasts'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// 스프링 웹
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// 롬복
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// H2 DB
+	runtimeOnly 'com.h2database:h2'
+
+	// JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
+
+	// Spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	//JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+	// ModelMapper 추가
+	implementation 'org.modelmapper:modelmapper:3.2.0'
+
+	// 유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 마크다운
+	implementation'org.commonmark:commonmark:0.24.0'
+	
+	// HTML 파싱
+	implementation("org.jsoup:jsoup:1.19.1")
+	
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs.add('-parameters')
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

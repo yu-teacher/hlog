@@ -1,0 +1,77 @@
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+#        show_sql: true # 필요하면 또 키셈
+
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 8MB
+
+  config:
+    import: classpath:/system-constant.yml
+
+  cache:
+    type: simple
+
+spring-doc:
+  packages-to-scan: com.hunnit_beasts.hlog
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    display-query-params-without-oauth2: true
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+jwt:
+  expiration_time: 86400000
+
+security:
+  auth-white-list:
+    /api/v1/member/**,
+    /swagger-ui/**,
+    /api-docs,
+    /swagger-ui-custom.html,
+    /v3/api-docs/**,
+    /api-docs/**,
+    /swagger-ui.html,
+    /api/v1/auth/**
+  cors-origin-whitelist:
+    http://localhost:3000,
+    http://127.0.0.1:3000,
+    http://127.0.0.1:8000,
+    http://localhost:8000
+
+upload:
+  directory:
+    "Windows 11": C:\Temp\hlog\
+    linux: /tmp/hlog/
+    mac: /temp/hlog/
+  max-size:
+    10485760
+
